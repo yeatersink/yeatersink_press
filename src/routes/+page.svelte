@@ -1,5 +1,7 @@
 <script lang="ts">
+	import Frame from '#lib/Frame.svelte';
 	import Logo from '#lib/Logo.svelte';
+	import { achieve, jerusalem, pictures, type Picture } from '#lib/site.ts';
 
 	type Part = {
 		id: string;
@@ -7,9 +9,10 @@
 		kicker: string;
 		title: string;
 		body: string;
+		image: Picture;
 	};
 
-	const year = new Date().getFullYear();
+	const atlas: Picture[] = [pictures.jerusalem, pictures.jericho, pictures.qumran];
 
 	const parts: Part[] = [
 		{
@@ -17,28 +20,32 @@
 			numeral: '01',
 			kicker: 'The approach',
 			title: 'Biblical Judaism',
-			body: 'Yeatersink prioritizes Biblical Judaism over the Rabbinic Judaism approach to neo-Biblical interpretation and over the modern Greek philosophical approach to Biblical literature. Read within this framework, the Hebrew Bible and New Testament-era literature hold a consistent meaning across the Testaments.'
+			body: 'Yeatersink prioritizes Biblical Judaism over the Rabbinic Judaism approach to neo-Biblical interpretation and over the modern Greek philosophical approach to Biblical literature. Read within this framework, the Hebrew Bible and New Testament-era literature hold a consistent meaning across the Testaments.',
+			image: pictures.shiloh
 		},
 		{
 			id: 'ancient-languages',
 			numeral: '02',
 			kicker: 'Context',
 			title: 'Ancient languages & early literature',
-			body: 'The materials rest on extensive education in Biblical Studies and ancient languages. Biblical literature is read together with extra-Biblical literature, including early Jewish literature, so that genre, wording, and argument are presented from within the literary and contextual environment in which the texts were written. Even with this depth, Yeatersink publishes in an easy-to-understand manner.'
+			body: 'The materials rest on extensive education in Biblical Studies and ancient languages. Biblical literature is read together with extra-Biblical literature, including early Jewish literature, so that genre, wording, and argument are presented from within the literary and contextual environment in which the texts were written. Even with this depth, Yeatersink publishes in an easy-to-understand manner.',
+			image: pictures.caves
 		},
 		{
 			id: 'temple-context',
 			numeral: '03',
 			kicker: 'Jewish theology',
 			title: 'First and Second Temple',
-			body: 'That education frames First and Second Temple Jewish theology. Biblical passages are interpreted within the worship, hope, and scriptural reasoning of those periods and are kept in that setting as they are explained.'
+			body: 'That education frames First and Second Temple Jewish theology. Biblical passages are interpreted within the worship, hope, and scriptural reasoning of those periods and are kept in that setting as they are explained.',
+			image: pictures.pilgrimage
 		},
 		{
 			id: 'new-testament-authors',
 			numeral: '04',
 			kicker: 'Application',
 			title: 'New Testament-era authors',
-			body: 'The same frame follows the application of Biblical passages by New Testament-era authors: how a passage is interpreted and how that interpretation is put to use in their own writing. This theological approach to New Testament studies underscores the Apostles’ Doctrine and the preaching of the New Testament Church. Yeatersink seeks to make these resources available, understandable, and presentable, making the Apostles’ Doctrine tangible from across the entire Bible.'
+			body: 'The same frame follows the application of Biblical passages by New Testament-era authors: how a passage is interpreted and how that interpretation is put to use in their own writing. This theological approach to New Testament studies underscores the Apostles’ Doctrine and the preaching of the New Testament Church. Yeatersink seeks to make these resources available, understandable, and presentable, making the Apostles’ Doctrine tangible from across the entire Bible.',
+			image: pictures.caesarea
 		}
 	];
 </script>
@@ -52,23 +59,17 @@
 	<meta property="og:title" content="yeatersink" />
 	<meta property="og:description" content="The whole Bible, to the Whole World…." />
 	<meta property="og:type" content="website" />
-	<meta property="og:image" content="/yeatersink_logo.jpeg" />
-	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="yeatersink" />
 	<meta name="twitter:description" content="The whole Bible, to the Whole World…." />
-	<meta name="twitter:image" content="/yeatersink_logo.jpeg" />
-	<meta name="theme-color" content="#101c2e" />
 </svelte:head>
 
 <div class="page">
-	<a class="skip" href="#materials">Skip to the materials</a>
-
 	<header class="hero">
 		<div class="plate">
 			<div class="plate-inner">
 				<div class="masthead">
 					<span>Yeatersink Materials</span>
-					<span>Achieve Life Services Inc.</span>
+					<a class="external" href={achieve}>Achieve Life Services Inc.</a>
 				</div>
 
 				<div class="hero-center">
@@ -84,7 +85,9 @@
 						</svg>
 						<span></span>
 					</div>
-					<p class="support">A publishing imprint of Achieve Life Services Inc.</p>
+					<p class="support">
+						A publishing imprint of <a class="external" href={achieve}>Achieve Life Services Inc.</a>
+					</p>
 				</div>
 
 				<a class="descend" href="#materials">
@@ -95,8 +98,16 @@
 		</div>
 	</header>
 
+	<section class="atlas" aria-label="Places">
+		<div class="atlas-row">
+			{#each atlas as place (place.src)}
+				<Frame {...place} variant="plate" />
+			{/each}
+		</div>
+	</section>
+
 	<main>
-		<section class="intro" id="materials">
+		<section class="intro on-light" id="materials">
 			<div class="intro-wrap">
 				<header class="intro-head">
 					<p class="eyebrow">Yeatersink Materials</p>
@@ -105,6 +116,10 @@
 						<span>the context of Early Biblical Judaism</span>
 					</h2>
 				</header>
+
+				<div class="feature-plate center">
+					<Frame {...pictures.scrolls} variant="feature" />
+				</div>
 
 				<div class="intro-split">
 					<div class="intro-meta">
@@ -145,6 +160,7 @@
 				<div class="parts">
 					{#each parts as part (part.id)}
 						<article id={part.id}>
+							<Frame {...part.image} variant="card" />
 							<p class="numeral">{part.numeral}</p>
 							<p class="kicker">{part.kicker}</p>
 							<h3>{part.title}</h3>
@@ -155,13 +171,16 @@
 			</div>
 		</section>
 
-		<section class="whole">
+		<section class="whole on-light">
 			<div class="intro-wrap">
 				<header class="intro-head">
 					<p class="eyebrow">For every reader</p>
 					<h2>The Whole Bible to the Whole Church</h2>
 				</header>
-				<div class="prose">
+				<div class="prose with-plate">
+					<div class="feature-plate float-end">
+						<Frame {...pictures.capernaum} variant="feature" />
+					</div>
 					<p class="lede">
 						Yeatersink Publishing is working to provide materials for a constituency of all ages.
 					</p>
@@ -175,54 +194,50 @@
 						for the furtherance of their educational pursuit of the Truth handed down by the authors
 						of the whole Bible.
 					</p>
+					<p>
+						<a class="text-link" href="#newsletter">Join the newsletter</a>
+						to receive emails about new releases and other valuable information.
+					</p>
 					<p class="closing">The whole Bible, to the Whole World….</p>
+				</div>
+				<nav class="contents" aria-label="Yeatersink sections">
+					<ul>
+						<li><a class="text-link" href="/new-releases">New Releases</a></li>
+						<li><a class="text-link" href="/kids-corner">Kids Corner</a></li>
+						<li>
+							<a class="text-link" href="/for-the-youth-of-tomorrow">For the Youth of Tomorrow</a>
+						</li>
+						<li>
+							<a class="text-link" href="/home-bible-studies">Material for Home Bible Studies</a>
+						</li>
+						<li><a class="text-link" href="/for-the-intellectuals">For the Intellectuals</a></li>
+					</ul>
+				</nav>
+				<div class="relations">
+					<p>
+						yeatersink is the publishing arm of
+						<a class="external" href={achieve}>Achieve Life Services Inc.</a>
+					</p>
+					<p>
+						<a class="external" href={jerusalem}>Remembering Jerusalem (rememberingjerusalem.org)</a>
+						is the hands and feet of
+						<a class="external" href={achieve}>Achieve Life Services Inc.</a>
+					</p>
 				</div>
 			</div>
 		</section>
 	</main>
-
-	<footer>
-		<div class="footer-inner">
-			<div class="footer-brand">
-				<Logo size="footer" label="yeatersink" />
-				<p class="footer-tag">The whole Bible, to the Whole World….</p>
-			</div>
-			<div class="footer-meta">
-				<p>A publishing imprint of Achieve Life Services Inc.</p>
-				<p class="copyright">© {year} yeatersink</p>
-			</div>
-		</div>
-	</footer>
 </div>
 
 <style>
-	.skip {
-		position: absolute;
-		left: 1rem;
-		top: 1rem;
-		z-index: 5;
-		transform: translateY(-160%);
-		background: var(--cream);
-		color: var(--navy);
-		padding: 0.55rem 0.9rem;
-		font-size: 0.95rem;
-		font-weight: 600;
-		text-decoration: none;
-	}
-
-	.skip:focus {
-		transform: none;
-	}
-
 	.page {
 		position: relative;
 	}
 
 	.hero {
-		min-height: 100svh;
+		min-height: calc(100svh - 4.6rem);
 		display: flex;
 		padding: clamp(0.85rem, 1.8vw, 1.35rem);
-		border-top: 4px solid var(--gold);
 		background:
 			radial-gradient(ellipse 80% 60% at 50% 42%, rgba(36, 58, 88, 0.45), transparent 64%),
 			radial-gradient(ellipse 42% 36% at 88% 88%, rgba(208, 154, 60, 0.2), transparent 62%),
@@ -251,7 +266,7 @@
 		justify-content: space-between;
 		gap: 0.75rem 1.5rem;
 		flex-wrap: wrap;
-		padding: 0.15rem 5.75rem 0.95rem 0.15rem;
+		padding: 0.15rem 0.15rem 0.95rem;
 		border-bottom: 1px solid var(--rule-light);
 		color: rgba(246, 239, 228, 0.78);
 		font-size: 0.72rem;
@@ -318,7 +333,7 @@
 	}
 
 	.support {
-		max-width: 36rem;
+		max-width: 40rem;
 		font-family: var(--serif);
 		font-size: clamp(1.05rem, 2.3cqi, 1.4rem);
 		font-weight: 500;
@@ -356,6 +371,21 @@
 		background: linear-gradient(to bottom, transparent, var(--brass) 80%);
 	}
 
+	.atlas {
+		background:
+			radial-gradient(ellipse 50% 80% at 50% 100%, rgba(208, 154, 60, 0.08), transparent 60%),
+			var(--navy);
+		padding-block: clamp(1.75rem, 3.5vw, 2.75rem);
+	}
+
+	.atlas-row {
+		width: min(34rem, calc(100% - 2 * clamp(1.25rem, 5vw, 4rem)));
+		margin-inline: auto;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 0.7rem;
+	}
+
 	.intro,
 	.whole {
 		background:
@@ -366,14 +396,31 @@
 	}
 
 	.intro-wrap,
-	.reading-inner,
-	.footer-inner {
+	.reading-inner {
 		width: min(68rem, calc(100% - 2 * clamp(1.25rem, 5vw, 4rem)));
 		margin-inline: auto;
 	}
 
 	.intro-wrap {
-		padding-block: clamp(5.25rem, 11vw, 8.25rem);
+		padding-block: clamp(4.5rem, 9vw, 7rem);
+	}
+
+	.feature-plate.center {
+		width: clamp(10.5rem, 50%, 34rem);
+		margin-inline: auto;
+		margin-block: clamp(1.5rem, 3vw, 2.2rem) 0;
+	}
+
+	.feature-plate.float-end {
+		float: right;
+		width: 50%;
+		margin: 0.2rem 0 0.85rem 1.5rem;
+	}
+
+	.with-plate::after {
+		content: '';
+		display: block;
+		clear: both;
 	}
 
 	.eyebrow {
@@ -400,7 +447,7 @@
 		display: grid;
 		grid-template-columns: minmax(11.5rem, 15rem) minmax(0, 1fr);
 		gap: clamp(1.75rem, 4vw, 4rem);
-		margin-top: clamp(2.5rem, 5vw, 3.75rem);
+		margin-top: clamp(1.75rem, 3.5vw, 2.6rem);
 		padding-top: clamp(1.75rem, 3vw, 2.4rem);
 		border-top: 1px solid var(--rule-dark);
 	}
@@ -446,6 +493,37 @@
 		font-size: 1.35rem;
 		color: var(--navy);
 		margin-top: 1.75rem;
+	}
+
+	.contents {
+		margin-top: clamp(1.75rem, 3.5vw, 2.4rem);
+		padding-top: 1.15rem;
+		border-top: 1px solid var(--rule-dark);
+	}
+
+	.contents ul {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.35rem 0;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.contents li {
+		display: flex;
+		align-items: center;
+	}
+
+	.contents li:not(:last-child)::after {
+		content: '·';
+		margin-inline: 0.7rem;
+		color: var(--gold-ink);
+	}
+
+	.contents a {
+		font-weight: 600;
+		font-size: 1.02rem;
 	}
 
 	.reading {
@@ -504,6 +582,7 @@
 		border-right: 1px solid var(--rule-light);
 		border-bottom: 1px solid var(--rule-light);
 		background: rgba(255, 250, 242, 0.015);
+		text-align: center;
 		transition: background-color 180ms ease;
 	}
 
@@ -514,6 +593,7 @@
 	.numeral {
 		display: flex;
 		flex-direction: column;
+		align-items: center;
 		gap: 0.7rem;
 		font-family: var(--serif);
 		font-size: 1.85rem;
@@ -550,6 +630,7 @@
 
 	.card-body {
 		margin-top: 0.9rem;
+		margin-inline: auto;
 		max-width: 38rem;
 		color: #eadfce;
 		font-size: 1.05rem;
@@ -560,57 +641,53 @@
 		border-top: 1px solid var(--rule-dark);
 	}
 
-	footer {
-		border-top: 4px solid var(--gold);
-		background: var(--navy-deep);
-		color: var(--cream-text);
+	.relations {
+		margin-top: clamp(2rem, 4vw, 2.75rem);
+		padding-top: clamp(1.35rem, 3vw, 1.85rem);
+		border-top: 1px solid var(--rule-dark);
+		display: grid;
+		gap: 0.85rem;
+		max-width: 40rem;
 	}
 
-	.footer-inner {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		gap: 2rem 3rem;
-		padding-block: clamp(2.5rem, 5vw, 3.75rem);
-	}
-
-	.footer-tag {
-		margin-top: 0.85rem;
+	.relations p {
 		font-family: var(--serif);
-		font-style: italic;
+		font-size: clamp(1.2rem, 2vw, 1.4rem);
 		font-weight: 500;
-		font-size: 1.35rem;
-		color: #f0e2cc;
+		line-height: 1.45;
+		color: var(--navy);
 	}
 
-	.footer-meta {
-		text-align: right;
-		color: #ddceb8;
-		font-size: 0.98rem;
-		line-height: 1.5;
-	}
+	@media (min-width: 801px) {
+		.atlas-row {
+			border: 1px solid rgba(208, 154, 60, 0.55);
+			padding: 0.7rem;
+		}
 
-	.copyright {
-		margin-top: 0.35rem;
-		color: #cbbba4;
-		font-size: 0.92rem;
-	}
-
-	@media (min-width: 780px) {
 		.intro h2,
 		.whole h2 {
 			display: flex;
 			flex-direction: column;
 			align-items: flex-start;
 		}
-
-		.intro h2 span,
-		.whole h2 span {
-			max-width: 100%;
-		}
 	}
 
 	@media (max-width: 800px) {
+		.atlas-row {
+			display: flex;
+			width: auto;
+			margin-inline: 0;
+			padding-inline: 1rem;
+			overflow-x: auto;
+			scroll-snap-type: x mandatory;
+			gap: 0.7rem;
+		}
+
+		.atlas-row > :global(figure) {
+			flex: 0 0 min(40vw, 11rem);
+			scroll-snap-align: start;
+		}
+
 		.intro-split,
 		.parts {
 			grid-template-columns: 1fr;
@@ -622,23 +699,19 @@
 		}
 	}
 
-	@media (max-width: 640px) {
-		.masthead {
-			letter-spacing: 0.1em;
-			font-size: 0.66rem;
-			padding-right: 0.15rem;
+	@media (max-width: 700px) {
+		.feature-plate.float-end {
+			float: none;
+			width: clamp(10.5rem, 50%, 16rem);
+			margin: 0 auto 1.15rem;
 		}
 
-		.footer-inner {
+		.masthead {
 			flex-direction: column;
 			align-items: flex-start;
-		}
-
-		.footer-meta {
-			text-align: left;
-			padding-top: 1.35rem;
-			border-top: 1px solid var(--rule-light);
-			width: 100%;
+			gap: 0.35rem;
+			letter-spacing: 0.08em;
+			font-size: 0.66rem;
 		}
 	}
 
@@ -661,14 +734,12 @@
 	}
 
 	@media print {
-		.skip,
 		.descend {
 			display: none;
 		}
 
 		.hero,
-		.reading,
-		footer {
+		.reading {
 			background: white;
 			color: black;
 			border-color: #d09a3c;
@@ -679,19 +750,23 @@
 		.support,
 		.reading h2,
 		.parts h3,
-		.footer-tag,
 		.deck,
 		.card-body,
 		.kicker,
 		.numeral,
-		.footer-meta,
-		.copyright,
-		.closing {
+		.closing,
+		.relations p {
 			color: black;
 		}
 
 		.hero {
 			min-height: auto;
+		}
+
+		.feature-plate.float-end {
+			float: none;
+			width: 50%;
+			margin: 0 auto 1rem;
 		}
 	}
 </style>

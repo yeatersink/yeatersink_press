@@ -26,6 +26,7 @@
 
 html {
 	background: var(--navy);
+	scroll-padding-top: 5.5rem;
 }
 
 html:focus-within {
@@ -57,10 +58,35 @@ h3 {
 	letter-spacing: -0.02em;
 	line-height: 1.08;
 	text-wrap: balance;
+	overflow-wrap: break-word;
 }
 
 a {
 	color: inherit;
+}
+
+a.external,
+a.text-link {
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.22em;
+	text-decoration-color: var(--gold);
+}
+
+a.external:hover,
+a.text-link:hover {
+	color: var(--gold);
+}
+
+.on-light a.external,
+.on-light a.text-link {
+	color: var(--gold-ink);
+	text-decoration-color: var(--gold-ink);
+}
+
+.on-light a.external:hover,
+.on-light a.text-link:hover {
+	color: var(--navy);
 }
 
 ::selection {
@@ -88,5 +114,12 @@ a {
 
 	:focus-visible {
 		outline: none;
+	}
+
+	a,
+	a.external,
+	a.text-link {
+		color: black;
+		text-decoration-color: black;
 	}
 }

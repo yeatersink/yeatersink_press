@@ -12,7 +12,6 @@
 	} = $props();
 
 	const mp4 = '/yeatersink_logo.mp4';
-	const poster = '/yeatersink_logo.jpeg';
 
 	let video: HTMLVideoElement | undefined = $state();
 
@@ -27,6 +26,11 @@
 		const sync = () => {
 			if (motion.matches) {
 				node.pause();
+				try {
+					node.currentTime = 0;
+				} catch {
+					// Metadata may not be ready yet. The paused frame is enough.
+				}
 				return;
 			}
 
@@ -46,7 +50,6 @@
 	aria-label={label || undefined}
 	aria-hidden={label ? undefined : 'true'}
 >
-	<img class="logo-still" src={poster} alt="" width="1600" height="900" />
 	<video
 		bind:this={video}
 		class="logo-video"
@@ -54,16 +57,15 @@
 		loop
 		muted
 		playsinline
-		{poster}
-		preload="metadata"
+		preload="auto"
 		width="1024"
 		height="576"
 		disablepictureinpicture
 		disableremoteplayback
 		aria-hidden="true"
 	>
-		<source src={mp4} type="video/mp4" media="(prefers-reduced-motion: no-preference)" />
-		<img src={poster} alt="" width="1600" height="900" />
+		<source src={mp4} type="video/mp4" />
+		yeatersink
 	</video>
 </span>
 
@@ -85,21 +87,14 @@
 		width: min(16rem, 72vw);
 	}
 
-	.logo-still,
 	.logo-video {
 		display: block;
 		width: 100%;
 		height: auto;
 		aspect-ratio: 16 / 9;
 		object-fit: contain;
-		background: transparent;
+		background: var(--navy-deep);
 		border: 0;
-	}
-
-	.logo-video {
-		position: absolute;
-		inset: 0;
-		height: 100%;
 		pointer-events: none;
 	}
 
@@ -109,19 +104,9 @@
 		display: none !important;
 	}
 
-	@media (prefers-reduced-motion: reduce) {
-		.logo-video {
-			display: none;
-		}
-	}
-
 	@media print {
 		.logo {
 			box-shadow: none;
-		}
-
-		.logo-video {
-			display: none;
 		}
 	}
 </style>

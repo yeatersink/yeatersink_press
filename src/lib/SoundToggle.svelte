@@ -65,8 +65,8 @@
 	.sound {
 		position: fixed;
 		z-index: 6;
-		top: 2.7rem;
-		right: 2.35rem;
+		top: 0.85rem;
+		right: 1.15rem;
 		display: inline-flex;
 		align-items: center;
 		gap: 0.4rem;
@@ -98,8 +98,8 @@
 
 	@media (max-width: 640px) {
 		.sound {
-			top: 3.05rem;
-			right: 1.55rem;
+			top: 0.72rem;
+			right: 0.7rem;
 			padding: 0.46rem 0.62rem;
 		}
 	}
