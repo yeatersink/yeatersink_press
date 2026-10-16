@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Logo from '#lib/Logo.svelte';
+
 	type Part = {
 		id: string;
 		numeral: string;
@@ -50,8 +52,11 @@
 	<meta property="og:title" content="yeatersink" />
 	<meta property="og:description" content="The whole Bible, to the Whole World…." />
 	<meta property="og:type" content="website" />
+	<meta property="og:image" content="/yeatersink_logo.jpeg" />
+	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="yeatersink" />
 	<meta name="twitter:description" content="The whole Bible, to the Whole World…." />
+	<meta name="twitter:image" content="/yeatersink_logo.jpeg" />
 	<meta name="theme-color" content="#101c2e" />
 </svelte:head>
 
@@ -67,7 +72,10 @@
 				</div>
 
 				<div class="hero-center">
-					<h1>yeatersink</h1>
+					<h1>
+						<Logo size="hero" />
+						<span class="sr-only">yeatersink</span>
+					</h1>
 					<p class="tagline">The whole Bible, to the Whole World….</p>
 					<div class="ornament" aria-hidden="true">
 						<span></span>
@@ -176,7 +184,7 @@
 	<footer>
 		<div class="footer-inner">
 			<div class="footer-brand">
-				<p class="footer-mark">yeatersink</p>
+				<Logo size="footer" label="yeatersink" />
 				<p class="footer-tag">The whole Bible, to the Whole World….</p>
 			</div>
 			<div class="footer-meta">
@@ -214,10 +222,10 @@
 		min-height: 100svh;
 		display: flex;
 		padding: clamp(0.85rem, 1.8vw, 1.35rem);
-		border-top: 4px solid var(--maroon);
+		border-top: 4px solid var(--gold);
 		background:
 			radial-gradient(ellipse 80% 60% at 50% 42%, rgba(36, 58, 88, 0.45), transparent 64%),
-			radial-gradient(ellipse 42% 36% at 88% 88%, rgba(125, 49, 64, 0.2), transparent 62%),
+			radial-gradient(ellipse 42% 36% at 88% 88%, rgba(208, 154, 60, 0.2), transparent 62%),
 			radial-gradient(ellipse 36% 32% at 8% 82%, rgba(110, 75, 52, 0.22), transparent 60%),
 			var(--navy);
 	}
@@ -225,7 +233,7 @@
 	.plate {
 		flex: 1;
 		display: flex;
-		border: 1px solid rgba(125, 49, 64, 0.9);
+		border: 1px solid rgba(208, 154, 60, 0.9);
 		padding: 6px;
 	}
 
@@ -243,7 +251,7 @@
 		justify-content: space-between;
 		gap: 0.75rem 1.5rem;
 		flex-wrap: wrap;
-		padding: 0.15rem 0.15rem 0.95rem;
+		padding: 0.15rem 5.75rem 0.95rem 0.15rem;
 		border-bottom: 1px solid var(--rule-light);
 		color: rgba(246, 239, 228, 0.78);
 		font-size: 0.72rem;
@@ -259,16 +267,28 @@
 		align-items: center;
 		justify-content: center;
 		text-align: center;
-		padding: clamp(2.75rem, 7vh, 5rem) 0.25rem;
+		padding: clamp(1.35rem, 4vh, 2.75rem) 0.25rem;
 	}
 
 	h1 {
-		max-width: 100%;
-		font-size: clamp(2.15rem, 12.2cqi, 8.6rem);
-		font-weight: 500;
-		line-height: 0.92;
-		letter-spacing: -0.035em;
-		color: var(--cream-text);
+		position: relative;
+		display: flex;
+		justify-content: center;
+		width: 100%;
+		margin: 0;
+		line-height: 0;
+	}
+
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
 	}
 
 	.tagline {
@@ -325,7 +345,7 @@
 	.descend-line {
 		width: 1px;
 		height: 2.6rem;
-		background: linear-gradient(to bottom, transparent, var(--maroon) 78%);
+		background: linear-gradient(to bottom, transparent, var(--gold) 78%);
 	}
 
 	.descend:hover {
@@ -340,7 +360,7 @@
 	.whole {
 		background:
 			radial-gradient(ellipse 70% 50% at 0% 0%, rgba(110, 75, 52, 0.07), transparent 52%),
-			radial-gradient(ellipse 60% 45% at 100% 100%, rgba(125, 49, 64, 0.06), transparent 55%),
+			radial-gradient(ellipse 60% 45% at 100% 100%, rgba(208, 154, 60, 0.08), transparent 55%),
 			var(--cream);
 		color: var(--ink);
 	}
@@ -362,7 +382,7 @@
 		font-weight: 600;
 		letter-spacing: 0.16em;
 		text-transform: uppercase;
-		color: var(--maroon-deep);
+		color: var(--gold-ink);
 	}
 
 	.intro h2,
@@ -429,9 +449,9 @@
 	}
 
 	.reading {
-		border-top: 4px solid var(--maroon);
+		border-top: 4px solid var(--gold);
 		background:
-			radial-gradient(ellipse 55% 45% at 100% 0%, rgba(125, 49, 64, 0.16), transparent 58%),
+			radial-gradient(ellipse 55% 45% at 100% 0%, rgba(208, 154, 60, 0.16), transparent 58%),
 			radial-gradient(ellipse 42% 36% at 0% 100%, rgba(110, 75, 52, 0.18), transparent 55%),
 			var(--navy);
 		color: var(--cream-text);
@@ -451,7 +471,7 @@
 		width: 2.4rem;
 		height: 2px;
 		margin-top: 0.9rem;
-		background: var(--maroon);
+		background: var(--gold);
 	}
 
 	.reading h2 {
@@ -508,7 +528,7 @@
 		content: '';
 		width: 2rem;
 		height: 2px;
-		background: var(--maroon);
+		background: var(--gold);
 	}
 
 	.kicker {
@@ -541,7 +561,7 @@
 	}
 
 	footer {
-		border-top: 4px solid var(--maroon);
+		border-top: 4px solid var(--gold);
 		background: var(--navy-deep);
 		color: var(--cream-text);
 	}
@@ -549,22 +569,13 @@
 	.footer-inner {
 		display: flex;
 		justify-content: space-between;
-		align-items: flex-end;
+		align-items: center;
 		gap: 2rem 3rem;
-		padding-block: clamp(3rem, 6vw, 4.5rem);
-	}
-
-	.footer-mark {
-		font-family: var(--serif);
-		font-size: clamp(2rem, 3vw, 2.6rem);
-		font-weight: 500;
-		letter-spacing: -0.03em;
-		line-height: 1;
-		color: var(--cream-text);
+		padding-block: clamp(2.5rem, 5vw, 3.75rem);
 	}
 
 	.footer-tag {
-		margin-top: 0.55rem;
+		margin-top: 0.85rem;
 		font-family: var(--serif);
 		font-style: italic;
 		font-weight: 500;
@@ -615,6 +626,7 @@
 		.masthead {
 			letter-spacing: 0.1em;
 			font-size: 0.66rem;
+			padding-right: 0.15rem;
 		}
 
 		.footer-inner {
@@ -659,7 +671,7 @@
 		footer {
 			background: white;
 			color: black;
-			border-color: #7d3140;
+			border-color: #d09a3c;
 		}
 
 		h1,
@@ -667,7 +679,6 @@
 		.support,
 		.reading h2,
 		.parts h3,
-		.footer-mark,
 		.footer-tag,
 		.deck,
 		.card-body,

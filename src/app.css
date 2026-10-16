@@ -2,8 +2,8 @@
 	--navy: #101c2e;
 	--navy-deep: #0c1624;
 	--navy-raise: #1b2d46;
-	--maroon: #7d3140;
-	--maroon-deep: #632430;
+	--gold: #d09a3c;
+	--gold-ink: #8a5e18;
 	--brown: #6e4b34;
 	--brown-deep: #4a3122;
 	--brass: #d4b483;
@@ -64,8 +64,8 @@ a {
 }
 
 ::selection {
-	background: var(--maroon);
-	color: var(--cream);
+	background: var(--gold);
+	color: var(--navy);
 }
 
 :focus-visible {
