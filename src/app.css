@@ -1,0 +1,92 @@
+:root {
+	--navy: #101c2e;
+	--navy-deep: #0c1624;
+	--navy-raise: #1b2d46;
+	--maroon: #7d3140;
+	--maroon-deep: #632430;
+	--brown: #6e4b34;
+	--brown-deep: #4a3122;
+	--brass: #d4b483;
+	--tan: #f3eadc;
+	--cream: #faf6ef;
+	--cream-text: #f6efe4;
+	--ink: #241c16;
+	--ink-soft: #3e342c;
+	--serif: 'Fraunces', 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+	--sans: 'Source Sans 3', 'Segoe UI', sans-serif;
+	--rule-light: rgba(243, 234, 220, 0.22);
+	--rule-dark: rgba(74, 49, 34, 0.22);
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	background: var(--navy);
+}
+
+html:focus-within {
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	background: var(--navy);
+	color: var(--cream-text);
+	font-family: var(--sans);
+	font-size: 1.125rem;
+	line-height: 1.7;
+	text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+p {
+	margin: 0;
+}
+
+h1,
+h2,
+h3 {
+	font-family: var(--serif);
+	font-weight: 560;
+	letter-spacing: -0.02em;
+	line-height: 1.08;
+	text-wrap: balance;
+}
+
+a {
+	color: inherit;
+}
+
+::selection {
+	background: var(--maroon);
+	color: var(--cream);
+}
+
+:focus-visible {
+	outline: 2px solid var(--brass);
+	outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html:focus-within {
+		scroll-behavior: auto;
+	}
+}
+
+@media print {
+	html,
+	body {
+		background: white;
+		color: black;
+	}
+
+	:focus-visible {
+		outline: none;
+	}
+}
